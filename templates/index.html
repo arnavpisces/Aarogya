@@ -37,7 +37,7 @@
                 map.sources.add(datasource);
 
                 //Load a data set of points, in this case earthquake data from the USGS.
-                datasource.importDataFromUrl('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson');
+                datasource.importDataFromUrl('aarogya.azurewebsites.net/points/');
 
                 //Create a heatmap and add it to the map.
                 map.layers.add(new atlas.layer.HeatMapLayer(datasource, null, {

@@ -1,0 +1,31 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    26.035283,
+                    83.172108
+                ]
+            },
+            "properties": {
+                "name": "Yeh bhi bihar hi hai"
+            }
+        },
+      {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    26.035052,
+                    83.167516
+                ]
+            },
+            "properties": {
+                "name": "Azamgarh Bihar"
+            }
+        }
+    ]
+}
