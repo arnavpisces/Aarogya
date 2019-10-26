@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Weighted Heat Map Layer - Azure Maps Web SDK Samples</title>
 
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="IE=Edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="This sample shows how to create a heat map which defines the intensity of each data point based on a property." />
-    <meta name="keywords" content="map, gis, API, SDK, heatmap, heat map, heatmaps, heat maps, density, layer, thermatic" />
+    <meta name="description"
+        content="This sample shows how to create a heat map which defines the intensity of each data point based on a property." />
+    <meta name="keywords"
+        content="map, gis, API, SDK, heatmap, heat map, heatmaps, heat maps, density, layer, thermatic" />
     <meta name="author" content="Microsoft Azure Maps" />
 
     <!-- Add references to the Azure Maps Map control JavaScript and CSS files. -->
-    <link rel="stylesheet" href="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.css" type="text/css" />
+    <link rel="stylesheet" href="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.css"
+        type="text/css" />
     <script src="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.js"></script>
 
     <script type='text/javascript'>
@@ -21,8 +25,8 @@
             //Initialize a map instance.
             map = new atlas.Map('myMap', {
                 view: 'Auto',
-				
-				//Add your Azure Maps subscription key to the map SDK. Get an Azure Maps key at https://azure.com/maps
+
+                //Add your Azure Maps subscription key to the map SDK. Get an Azure Maps key at https://azure.com/maps
                 authOptions: {
                     authType: 'subscriptionKey',
                     subscriptionKey: 'dWpGv2yHPdM12rk1kw1HwXb1wocHyrwdIE6zlq5Ww3Q'
@@ -38,39 +42,19 @@
 
                 //Load a data set of points, in this case earthquake data from the USGS.
                 datasource.importDataFromUrl('aarogya.azurewebsites.net/points/');
+                // datasource.importDataFromUrl('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.geojson');
+
 
                 //Create a heatmap and add it to the map.
                 map.layers.add(new atlas.layer.HeatMapLayer(datasource, null, {
-                    weight: [
-                        'interpolate',
-                        ['exponential', 2], //Using an exponential interpolation since earthquake magnitudes are on an exponential scale.
-                        ['get', 'mag'],
-                        0, 0,
-                        6, 1    //Any earthquake above a magnitude of 6 will have a weight of 1
-                    ],
-                    radius: [
-                        'interpolate',
-                        ['linear'],
-                        ['zoom'],
-                        0, 2,
-                        22, 200
-                    ],
-                    color: [
-                        'interpolate',
-                        ['linear'],
-                        ['heatmap-density'],
-                        0, 'rgba(33,102,172,0)',
-                        0.2, 'rgb(103,169,207)',
-                        0.4, 'rgb(209,229,240)',
-                        0.6, 'rgb(253,219,199)',
-                        0.8, 'rgb(239,138,98)',
-                        1, 'rgb(178,24,43)'
-                    ]
+                    radius: 100,
+                    opacity: 1
                 }), 'labels');
             });
         }
     </script>
 </head>
+
 <body onload="GetMap()">
     <div id="myMap" style="position:relative;width:100%;min-width:290px;height:800px;"></div>
 
@@ -83,4 +67,5 @@
         <b>Tip:</b> When working with larger data sets, enable clustering on the data source and set the weight to ['get', 'point_count'] to get improved performance.
     </fieldset> -->
 </body>
+
 </html>

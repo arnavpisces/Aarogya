@@ -7,10 +7,10 @@ app=Flask(__name__)
 def index():
     return render_template("index.html")
 
-@app.route('/points/')
+@app.route('/points/') #to return the file 
 def return_files_tut():
 	try:
-		return send_file('json/geo.json', attachment_filename='geo.json')
+		return send_file('json/geo.geojson', attachment_filename='geo.geojson')
 	except Exception as e:
 		return str(e)
 
