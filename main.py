@@ -110,7 +110,7 @@ def return_files_tut():
 
 @app.route('/docportal/',methods=['POST','GET'])
 def doc_gen():
-    return render_template("doc.html")
+    return render_template("doc2.html")
 
 @app.route('/handle_data', methods=['POST'])
 def handle_data():
@@ -128,7 +128,7 @@ def handle_data():
     testfile.update_bbox()
     testfile.save("json/geo.geojson")
     checkfence()
-    return render_template("doc.html", content=content)
+    return render_template("doc2.html", content=content)
 
 @app.route("/sms", methods=['GET', 'POST'])
 def incoming_sms():
