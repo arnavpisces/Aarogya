@@ -1,0 +1,30 @@
+{
+    "crs": {
+        "type": "name",
+        "properties": {
+            "name": "urn:ogc:def:crs:OGC:2:84"
+        }
+    },
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "geometry": {
+                "type": "Point",
+                "bbox": [
+                    77.201854,
+                    28.635901,
+                    77.201854,
+                    28.635901
+                ],
+                "coordinates": [
+                    77.201854,
+                    28.635901
+                ]
+            },
+            "type": "Feature",
+            "properties": {
+                "name": "Champaran, Bihar, India"
+            }
+        }
+    ]
+}
