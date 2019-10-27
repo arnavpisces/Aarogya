@@ -1,12 +1,12 @@
 import math, random, operator
 from math import atan2
 from functools import reduce
-
+# 77.230003, 28.610001
 coords=[]
 for i in range(10):
     r = float(2500/111300)
-    y0 = 28.635901
-    x0 = 77.201854
+    y0 = 28.610001
+    x0 = 77.230003
     u = random.uniform(0, 1)+1
     v = random.uniform(0, 1)+1
     w = r * math.sqrt(u)
