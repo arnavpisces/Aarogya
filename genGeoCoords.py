@@ -2,6 +2,7 @@ import math, random, operator
 from math import atan2
 from functools import reduce
 import sys
+
 coords=[]
 lat=sys.argv[1]
 long=sys.argv[2]
