@@ -23,3 +23,4 @@ Werkzeug==0.16.0
 xlrd==1.2.0
 twilio==6.32.0
 PyGeoj==1.0.0
+geopy==1.20.0

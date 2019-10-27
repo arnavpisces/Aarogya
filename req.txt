@@ -10,6 +10,8 @@ eventlet==0.25.1
 Flask==1.1.1
 Flask-SocketIO==4.2.1
 Flask-WTF==0.14.2
+geographiclib==1.50
+geopy==1.20.0
 gevent==1.4.0
 gevent-socketio==0.3.6
 gevent-websocket==0.10.1
