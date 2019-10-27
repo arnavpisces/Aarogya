@@ -44,7 +44,7 @@ def geoFence(long,lat): #to generate points around the main point, so as to crea
         finalcor.append([float(newsorted[dat]),float(newsorted[dat+1])])
     # print(finalcor)
     poly=finalcor
-    print(poly)
+    # print(poly)
     geoAdd=pygeoj.load(filepath="json/geo.geojson")
     
     nameToAdd="fence"+str(random.uniform(0,1))
@@ -151,7 +151,7 @@ def incoming_sms():
         # print len(poly)
         if location !=None:
             if len(poly)!=0:
-                print "inside here yay"
+                # print "inside here yay"
                 insideGeofence=checkInside(location.longitude, location.latitude,poly)
                 
                 if insideGeofence:
