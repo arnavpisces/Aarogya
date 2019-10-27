@@ -5,6 +5,7 @@ from math import atan2
 from functools import reduce
 import subprocess
 from twilio.twiml.messaging_response import MessagingResponse
+from geopy.geocoders import Nominatim
 
 #this is the initial data of the docid mapped with clinic
 doclocations={'doc8': ['Mumbai, Maharashtra, India', 72.877426, 19.07609], 'doc9': ['Sagar, Karnataka, India', 75.040298, 14.16704], 'doc2': ['Goregaon, Mumbai, Maharashtra, India', 72.849998, 19.155001], 'doc3': ['Pindwara, Rajasthan, India', 73.055, 24.7945], 'doc0': ['Chittorgarh, Rajasthan, India', 74.629997, 24.879999], 'doc1': ['Ratnagiri, Maharashtra, India', 73.300003, 16.994444], 'doc6': ['Lucknow, Uttar Pradesh, India', 80.949997, 26.85], 'doc7': ['Delhi, the National Capital Territory of Delhi, India', 77.230003, 28.610001], 'doc4': ['Raipur, Chhattisgarh, India', 81.629997, 21.25], 'doc5': ['Gokak, Karnataka, India', 74.833298, 16.1667], 'doc21': ['Karaikal, Puducherry, India', 79.838005, 10.92544], 'doc20': ['Ranebennur, Karnataka, India', 75.621788, 14.623801], 'doc23': ['Chatrapur, Odisha, India', 84.986732, 19.354979], 'doc22': ['Belgaum, Karnataka, India', 74.498703, 15.852792], 'doc25': ['Bhubaneswar, Odisha, India', 85.824539, 20.296059], 'doc24': ['Suri, West Bengal, India', 87.52462, 23.905445], 'doc27': ['Jagadhri, Haryana, India', 77.299492, 30.172716], 'doc26': ['Mahuva, Gujarat, India', 71.771645, 21.105001], 'doc29': ['Bhusawal, Maharashtra, India', 75.801094, 21.045521], 'doc28': ['Barh, Bihar, India', 85.709091, 25.477585], 'doc38': ['Haringhata, West Bengal, India', 88.567406, 22.96051], 'doc49': ['Sambhal, Uttar Pradesh, India', 78.571762, 28.590361], 'doc39': ['Kushtagi, Karnataka, India', 76.192696, 15.756595], 'doc43': ['Ambernath, Maharashtra, India', 73.191948, 19.186354], 'doc42': ['Surajpur, Chhattisgarh, India', 82.87056, 23.223047], 'doc41': ['Orai, Uttar Pradesh, India', 79.450035, 25.989836], 'doc40': ['Jadugora, Jharkhand, India', 86.352882, 22.656015], 'doc47': ['Durg, Chhattisgarh, India', 81.28492, 21.190449], 'doc46': ['Vizianagaram, Andhra Pradesh, India', 83.395554, 18.106659], 'doc45': ['Jorapokhar, Jharkhand, India', 85.760651, 22.422455], 'doc44': ['Malerkotla, Punjab, India', 75.890121, 30.525005], 'doc48': ['Himmatnagar, Gujarat, India', 72.969818, 23.597969], 'doc18': ['Surendranagar, Gujarat, India', 71.637077, 22.728392], 'doc19': ['Thiruvalla, Kerala, India', 76.574059, 9.383452], 'doc30': ['Alipurduar, West Bengal, India', 89.5271, 26.49189], 'doc31': ['Kollam, Kerala, India', 76.614143, 8.893212], 'doc36': ['Harihar, Karnataka, India', 75.801094, 14.530457], 'doc37': ['Rasayani, Maharashtra, India', 73.176132, 18.901457], 'doc34': ['Mettur, Tamil Nadu, India', 77.800781, 11.786253], 'doc35': ['Huliyar, Karnataka, India', 76.540154, 13.583274], 'doc10': ['Jalpaiguri, West Bengal, India', 88.719391, 26.540457], 'doc11': ['Pakur, Jharkhand, India', 87.849251, 24.633568], 'doc12': ['Sardarshahar, Rajasthan, India', 74.493011, 28.440554], 'doc13': ['Sirohi, Rajasthan, India', 72.858894, 24.882618], 'doc14': ['Jaysingpur, Maharashtra, India', 74.556374, 16.779877], 'doc15': ['Ramanagara, Karnataka, India', 77.281296, 12.715035], 'doc16': ['Chikkaballapura, Karnataka, India', 77.727478, 13.432515], 'doc17': ['Channapatna, Karnataka, India', 77.208946, 12.651805], 'doc32': ['Medinipur, West Bengal, India', 87.321487, 22.430889], 'doc33': ['Patan, Gujarat, India', 72.126625, 23.849325]}
@@ -110,11 +111,47 @@ def handle_data():
     checkfence()
     return render_template("doc.html", content=content)
 
-@app.route("/sms",methods=['GET','POST'])
-def sms_reply():
-    resp=MessagingResponse()
-    resp.message("The robots are coming, head for the hills bobber!")
+from flask import Flask, request, redirect
+from twilio.twiml.messaging_response import MessagingResponse
+
+app = Flask(__name__)
+
+
+app = Flask(__name__)
+
+@app.route("/sms", methods=['GET', 'POST'])
+def incoming_sms():
+    """Send a dynamic reply to an incoming text message"""
+    # Get the message the user sent our Twilio number
+    body = request.values.get('Body', None)
+
+    # Start our TwiML response
+    resp = MessagingResponse()
+
+    # Determine the right reply for this message
+    if body == 'location':
+        resp.message("Can you please send your nearest landmark!")
+    elif body == 'update':
+        resp.message("Can you re-enter your nearest location")
+    else:
+        msg=""
+        geolocator = Nominatim(user_agent="aarogya")
+        location = geolocator.geocode(body)
+        if location != None:
+            msg+="Your address is at"+ location.address+"and your approximate coordinates are "+location.latitude+" "+location.longitude
+            resp.message(msg+"\nYou're not near to any disease prone area. STAY SAFE! NAMASTE")
+            print(location.address)
+            print((location.latitude, location.longitude))
+            
+            
+    #print(location.raw)
+
+        
+
     return str(resp)
+
+if __name__ == "__main__":
+    app.run(debug=True)
 
 if __name__=='__main__':
     app.run(debug=True,threaded=True)
