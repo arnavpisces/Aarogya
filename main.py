@@ -111,14 +111,6 @@ def handle_data():
     checkfence()
     return render_template("doc.html", content=content)
 
-from flask import Flask, request, redirect
-from twilio.twiml.messaging_response import MessagingResponse
-
-app = Flask(__name__)
-
-
-app = Flask(__name__)
-
 @app.route("/sms", methods=['GET', 'POST'])
 def incoming_sms():
     """Send a dynamic reply to an incoming text message"""
@@ -145,8 +137,6 @@ def incoming_sms():
             
             
     #print(location.raw)
-
-        
 
     return str(resp)
 
