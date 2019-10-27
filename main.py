@@ -130,7 +130,7 @@ def incoming_sms():
         geolocator = Nominatim(user_agent="aarogya")
         location = geolocator.geocode(body)
         if location != None:
-            msg+="Your address is at "+ location.address+" and your approximate coordinates are "+location.latitude+" "+location.longitude
+            msg+="Your address is at "+ str(location.address)+" and your approximate coordinates are "+str(location.latitude)+" "+str(location.longitude)
             msg+="\nYou're not near to any disease prone area. STAY SAFE! NAMASTE"
             resp.message(msg)
             # print(location.address)
