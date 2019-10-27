@@ -111,32 +111,42 @@ def handle_data():
     checkfence()
     return render_template("doc.html", content=content)
 
-@app.route("/sms", methods=['GET', 'POST'])
-def incoming_sms():
-    """Send a dynamic reply to an incoming text message"""
-    # Get the message the user sent our Twilio number
-    body = request.values.get('Body', None)
+# @app.route("/sms", methods=['GET', 'POST'])
+# def incoming_sms():
+#     """Send a dynamic reply to an incoming text message"""
+#     # Get the message the user sent our Twilio number
+#     body = request.values.get('Body', None)
 
+#     # Start our TwiML response
+#     resp = MessagingResponse()
+
+#     # Determine the right reply for this message
+#     if body == 'location':
+#         resp.message("Can you please send your nearest landmark!")
+#     elif body == 'update':
+#         resp.message("Can you re-enter your nearest location")
+#     else:
+#         msg=""
+#         geolocator = Nominatim(user_agent="aarogya")
+#         location = geolocator.geocode(body)
+#         if location != None:
+#             msg+="Your address is at"+ location.address+"and your approximate coordinates are "+location.latitude+" "+location.longitude
+#             resp.message(msg+"\nYou're not near to any disease prone area. STAY SAFE! NAMASTE")
+#             # print(location.address)
+#             # print((location.latitude, location.longitude))
+            
+            
+#     #print(location.raw)
+
+#     return str(resp)
+@app.route("/sms", methods=['GET', 'POST'])
+def sms_reply():
+    """Respond to incoming calls with a simple text message."""
     # Start our TwiML response
     resp = MessagingResponse()
 
-    # Determine the right reply for this message
-    if body == 'location':
-        resp.message("Can you please send your nearest landmark!")
-    elif body == 'update':
-        resp.message("Can you re-enter your nearest location")
-    else:
-        msg=""
-        geolocator = Nominatim(user_agent="aarogya")
-        location = geolocator.geocode(body)
-        if location != None:
-            msg+="Your address is at"+ location.address+"and your approximate coordinates are "+location.latitude+" "+location.longitude
-            resp.message(msg+"\nYou're not near to any disease prone area. STAY SAFE! NAMASTE")
-            print(location.address)
-            print((location.latitude, location.longitude))
-            
-            
-    #print(location.raw)
+    # Add a message
+    resp.message("The Robots are coming! Head for the hills!")
 
     return str(resp)
 
