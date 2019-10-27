@@ -135,7 +135,7 @@ def incoming_sms():
     """Send a dynamic reply to an incoming text message"""
     # Get the message the user sent our Twilio number
     body = request.values.get('Body', None)
-    print(body)
+    # print(body)
     # Start our TwiML response
     resp = MessagingResponse()
     msg=""
@@ -148,7 +148,7 @@ def incoming_sms():
     else:
         geolocator = Nominatim(user_agent="aarogya")
         location = geolocator.geocode(body)
-        print len(poly)
+        # print len(poly)
         if location !=None:
             if len(poly)!=0:
                 print "inside here yay"
